@@ -16,76 +16,196 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ================= ORDER FORM ================= */
     const form = document.getElementById("orderForm");
-    const roll = document.getElementById("roll");
-    const qty = document.getElementById("qty");
+    const rollSelect = document.getElementById("roll");
+    const qtyInput = document.getElementById("qty");
     const totalDisplay = document.getElementById("total");
+    const nameInput = document.getElementById("name");
 
-    if (form && roll && qty && totalDisplay) {
+    // Order Modal Elements
+    const orderModal = document.getElementById("orderModal");
+    const modalClose = document.querySelector(".modal-close");
+    const confirmBtn = document.getElementById("confirmOrder");
+    const cancelBtn = document.getElementById("cancelOrder");
 
-        function calculateTotal() {
-            const price = Number(roll.value);
-            const quantity = Number(qty.value);
-            totalDisplay.textContent =
-                price && quantity ? price * quantity : 0;
-        }
+    // Summary Elements
+    const summaryName = document.getElementById("summaryName");
+    const summaryRoll = document.getElementById("summaryRoll");
+    const summaryQty = document.getElementById("summaryQty");
+    const summaryTotal = document.getElementById("summaryTotal");
 
-        roll.addEventListener("change", calculateTotal);
-        qty.addEventListener("input", calculateTotal);
+    // Toast notification
+    const toast = document.getElementById("toast");
 
-        form.addEventListener("submit", e => {
-            e.preventDefault();
-            alert(`Thank you! Your total is ₱${totalDisplay.textContent}. Order received.`);
-            form.reset();
-            totalDisplay.textContent = 0;
-        });
-
+    // Function to show toast notification
+    function showToast(message, type = "success") {
+        const toastMessage = toast.querySelector(".toast-message");
+        toast.className = "toast " + type;
+        toastMessage.textContent = message;
+        toast.classList.add("show");
+        
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 3000);
     }
 
-});
+    // Function to parse price from dropdown value (e.g., "Classic-45" → 45)
+    function parsePrice(value) {
+        if (!value) return 0;
+        // Split by "-" and get the last part (the price)
+        const parts = value.split("-");
+        const price = parseInt(parts[parts.length - 1], 10);
+        return isNaN(price) ? 0 : price;
+    }
 
-const form = document.getElementById("orderForm");
-const nameInput = document.getElementById("name");
-const roll = document.getElementById("roll");
-const qty = document.getElementById("qty");
-const totalDisplay = document.getElementById("total");
+    // Function to calculate total
+    function calculateTotal() {
+        const price = parsePrice(rollSelect.value);
+        const quantity = Number(qtyInput.value) || 0;
+        const total = price * quantity;
+        totalDisplay.textContent = total;
+        return total;
+    }
 
-const summaryBox = document.getElementById("orderSummary");
-const summaryName = document.getElementById("summaryName");
-const summaryRoll = document.getElementById("summaryRoll");
-const summaryQty = document.getElementById("summaryQty");
-const summaryTotal = document.getElementById("summaryTotal");
+    // Event listeners for total calculation
+    if (rollSelect && qtyInput && totalDisplay) {
+        rollSelect.addEventListener("change", calculateTotal);
+        qtyInput.addEventListener("input", calculateTotal);
+    }
 
-const confirmBtn = document.getElementById("confirmOrder");
-const cancelBtn = document.getElementById("cancelOrder");
+    // ================= MENU "ADD TO ORDER" BUTTONS =================
+    const addToOrderButtons = document.querySelectorAll(".btn-add");
+    
+    addToOrderButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const rollName = button.getAttribute("data-roll");
+            const rollPrice = button.getAttribute("data-price");
+            
+            // Find the matching option in the dropdown
+            const options = rollSelect.options;
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].value.startsWith(rollName + "-")) {
+                    rollSelect.selectedIndex = i;
+                    break;
+                }
+            }
+            
+            // Set quantity to 1
+            qtyInput.value = 1;
+            
+            // Calculate total
+            calculateTotal();
+            
+            // Scroll to order form
+            const orderSection = document.getElementById("order");
+            orderSection.scrollIntoView({ behavior: "smooth" });
+            
+            // Focus on name input
+            setTimeout(() => {
+                nameInput.focus();
+            }, 500);
+            
+            // Show toast notification
+            showToast(`${rollName} roll added to order!`);
+        });
+    });
 
-function calculateTotal() {
-    const price = Number(roll.value);
-    const quantity = Number(qty.value);
-    totalDisplay.textContent = price && quantity ? price * quantity : 0;
-}
+    // ================= FORM SUBMISSION =================
+    if (form) {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            
+            // Validate form
+            const name = nameInput.value.trim();
+            const roll = rollSelect.value;
+            const qty = qtyInput.value;
+            
+            if (!name) {
+                showToast("Please enter your name", "error");
+                nameInput.focus();
+                return;
+            }
+            
+            if (!roll) {
+                showToast("Please select a roll", "error");
+                rollSelect.focus();
+                return;
+            }
+            
+            if (!qty || qty < 1) {
+                showToast("Please enter a valid quantity", "error");
+                qtyInput.focus();
+                return;
+            }
+            
+            // Update modal with order details
+            summaryName.textContent = name;
+            summaryRoll.textContent = rollSelect.options[rollSelect.selectedIndex].text;
+            summaryQty.textContent = qty;
+            summaryTotal.textContent = calculateTotal();
+            
+            // Show modal
+            if (orderModal) {
+                orderModal.classList.add("active");
+                orderModal.setAttribute("aria-hidden", "false");
+            }
+        });
+    }
 
-roll.addEventListener("change", calculateTotal);
-qty.addEventListener("input", calculateTotal);
+    // ================= MODAL FUNCTIONALITY =================
+    // Close modal
+    if (modalClose) {
+        modalClose.addEventListener("click", () => {
+            if (orderModal) {
+                orderModal.classList.remove("active");
+                orderModal.setAttribute("aria-hidden", "true");
+            }
+        });
+    }
 
-form.addEventListener("submit", e => {
-    e.preventDefault();
+    // Close modal when clicking overlay
+    if (orderModal) {
+        orderModal.addEventListener("click", (e) => {
+            if (e.target === orderModal) {
+                orderModal.classList.remove("active");
+                orderModal.setAttribute("aria-hidden", "true");
+            }
+        });
+    }
 
-    summaryName.textContent = nameInput.value;
-    summaryRoll.textContent = roll.options[roll.selectedIndex].text;
-    summaryQty.textContent = qty.value;
-    summaryTotal.textContent = totalDisplay.textContent;
+    // Confirm order
+    if (confirmBtn) {
+        confirmBtn.addEventListener("click", () => {
+            // Close modal
+            if (orderModal) {
+                orderModal.classList.remove("active");
+                orderModal.setAttribute("aria-hidden", "true");
+            }
+            
+            // Show success message
+            showToast("Order confirmed! Thank you for choosing Loafy's Hungarian Roll.", "success");
+            
+            // Reset form
+            form.reset();
+            totalDisplay.textContent = "0";
+        });
+    }
 
-    summaryBox.style.display = "block";
-    summaryBox.scrollIntoView({ behavior: "smooth" });
-});
+    // Cancel order
+    if (cancelBtn) {
+        cancelBtn.addEventListener("click", () => {
+            if (orderModal) {
+                orderModal.classList.remove("active");
+                orderModal.setAttribute("aria-hidden", "true");
+            }
+        });
+    }
 
-confirmBtn.addEventListener("click", () => {
-    alert("Order confirmed! Thank you for choosing Loafy’s Hungarian Roll.");
-    summaryBox.style.display = "none";
-    form.reset();
-    totalDisplay.textContent = 0;
-});
+    // Close modal with Escape key
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && orderModal && orderModal.classList.contains("active")) {
+            orderModal.classList.remove("active");
+            orderModal.setAttribute("aria-hidden", "true");
+        }
+    });
 
-cancelBtn.addEventListener("click", () => {
-    summaryBox.style.display = "none";
 });
