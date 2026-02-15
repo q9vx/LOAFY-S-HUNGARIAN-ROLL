@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Loafy's Hungarian Roll - Freshly baked Hungarian rolls with premium ingredients. Order online for delivery or pickup.">
+    <meta name="author" content="Loafy's Hungarian Roll">
+    <meta name="theme-color" content="#8B4B2B">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Loafy's Hungarian Roll">
+    <meta property="og:description" content="Freshly baked Hungarian rolls with premium ingredients. Comfort in every bite.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    
+    <title>Loafy's Hungarian Roll | Fresh Baked Hungarian Rolls</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<header class="navbar" role="banner">
+    <div class="nav-container">
+        <a href="#home" class="nav-logo" aria-label="Loafy's Hungarian Roll Home">
+            <img src="logo.png" alt="Loafy's Hungarian Roll Logo">
+            <span>Loafy's Hungarian Roll</span>
+        </a>
+
+        <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+            <span class="hamburger"></span>
+        </button>
+
+        <nav class="nav-links" id="nav-menu" role="navigation" aria-label="Main navigation">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#menu">Menu</a>
+            <a href="#order" class="nav-btn">Order Now</a>
+        </nav>
+    </div>
+</header>
+
+
+<!-- Hero Section -->
+<section class="hero fade-in" id="home" aria-labelledby="hero-title">
+    <div class="hero-container">
+        <div class="hero-text">
+            <h1 id="hero-title">Freshly Baked<br><span>Hungarian Rolls</span></h1>
+            <p class="hero-description">Golden, flaky, and filled with rich flavors. Comfort in every bite.</p>
+            <div class="hero-cta">
+                <a href="#menu" class="btn btn-primary">View Menu</a>
+                <a href="#order" class="btn btn-secondary">Order Now</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="logo.png" alt="Delicious Hungarian Roll" loading="eager">
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about fade-in" id="about" aria-labelledby="about-title">
+    <div class="container">
+        <h2 id="about-title">Why Choose Loafy's?</h2>
+        <p class="about-description">
+            We specialize in freshly baked Hungarian rolls made with premium ingredients,
+            perfect for snacks, meals, and sharing. Our recipes have been passed down through
+            generations, ensuring authentic flavor in every bite.
+        </p>
+        <div class="about-features">
+            <div class="feature">
+                <span class="feature-icon">🌾</span>
+                <h3>Premium Ingredients</h3>
+                <p>Made with the finest flour and freshest fillings</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">👨‍🍳</span>
+                <h3>Artisan Baking</h3>
+                <p>Baked fresh daily by skilled craftsmen</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🚚</span>
+                <h3>Fast Delivery</h3>
+                <p>Hot and fresh right to your doorstep</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Menu Section -->
+<section class="menu fade-in" id="menu" aria-labelledby="menu-title">
+    <div class="container">
+        <h2 id="menu-title">Our Bestsellers</h2>
+        <p class="menu-subtitle">Handcrafted with love, baked to perfection</p>
+
+        <div class="menu-items">
+            <article class="menu-card">
+                <div class="menu-img">
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=300&h=300&fit=crop" alt="Classic Hungarian Roll" loading="lazy">
+                </div>
+                <div class="menu-content">
+                    <h3>Classic Hungarian Roll</h3>
+                    <p>Flaky bread with savory sausage filling</p>
+                    <div class="menu-footer">
+                        <span class="price">₱45</span>
+                        <button class="btn-add" data-roll="Classic" data-price="45">Add to Order</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="menu-card">
+                <div class="menu-img">
+                    <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=300&h=300&fit=crop" alt="Cheese Hungarian Roll" loading="lazy">
+                </div>
+                <div class="menu-content">
+                    <h3>Cheese Hungarian Roll</h3>
+                    <p>Stuffed with melted cheese goodness</p>
+                    <div class="menu-footer">
+                        <span class="price">₱55</span>
+                        <button class="btn-add" data-roll="Cheese" data-price="55">Add to Order</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="menu-card">
+                <div class="menu-img">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&h=300&fit=crop" alt="Spicy Hungarian Roll" loading="lazy">
+                </div>
+                <div class="menu-content">
+                    <h3>Spicy Hungarian Roll</h3>
+                    <p>Bold flavor with a spicy kick</p>
+                    <div class="menu-footer">
+                        <span class="price">₱60</span>
+                        <button class="btn-add" data-roll="Spicy" data-price="60">Add to Order</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- Order Section -->
+<section class="order fade-in" id="order" aria-labelledby="order-title">
+    <div class="container">
+        <h2 id="order-title">Place Your Order</h2>
+        <p class="order-subtitle">Fill out the form below and we'll get started on your order</p>
+
+        <form id="orderForm" class="order-form" novalidate>
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required aria-describedby="name-error">
+                <span class="error-message" id="name-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="roll">Select Roll</label>
+                <select id="roll" name="roll" required aria-describedby="roll-error">
+                    <option value="">Choose your roll</option>
+                    <option value="Classic-45">Classic Hungarian Roll – ₱45</option>
+                    <option value="Cheese-55">Cheese Hungarian Roll – ₱55</option>
+                    <option value="Spicy-60">Spicy Hungarian Roll – ₱60</option>
+                </select>
+                <span class="error-message" id="roll-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="qty">Quantity</label>
+                <input type="number" id="qty" name="qty" placeholder="Enter quantity" min="1" max="50" value="1" required aria-describedby="qty-error">
+                <span class="error-message" id="qty-error"></span>
+            </div>
+
+            <div class="form-group total-display">
+                <span class="total-label">Total Amount:</span>
+                <span class="total-amount">₱<span id="total">0</span></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">
+                <span class="btn-text">Submit Order</span>
+                <span class="loading-spinner" aria-hidden="true"></span>
+            </button>
+        </form>
+    </div>
+</section>
+
+<!-- Order Modal -->
+<div class="modal-overlay" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal">
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+        <h3 id="modal-title">Order Summary</h3>
+        
+        <div class="modal-content">
+            <div class="summary-item">
+                <span class="summary-label">Name:</span>
+                <span class="summary-value" id="summaryName"></span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Roll:</span>
+                <span class="summary-value" id="summaryRoll"></span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Quantity:</span>
+                <span class="summary-value" id="summaryQty"></span>
+            </div>
+            <div class="summary-item summary-total">
+                <span class="summary-label">Total:</span>
+                <span class="summary-value">₱<span id="summaryTotal"></span></span>
+            </div>
+        </div>
+
+        <div class="modal-actions">
+            <button type="button" class="btn btn-primary" id="confirmOrder">Confirm Order</button>
+            <button type="button" class="btn btn-outline" id="cancelOrder">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast" role="alert" aria-live="assertive">
+    <span class="toast-message"></span>
+</div>
+
+<!-- Footer -->
+<footer id="contact" role="contentinfo">
+    <div class="footer-container">
+        <div class="footer-info">
+            <h4>Loafy's Hungarian Roll</h4>
+            <p>Freshly baked Hungarian rolls made with love since 2020.</p>
+        </div>
+        <div class="footer-contact">
+            <h4>Contact Us</h4>
+            <p>📍 Your Location Here: M. Naval Street, Sipac-Almacen, Navotas City, Metro Manila, Philippines, 1485.</p>
+            <p>📞 (123) 456-7890</p>
+            <p>✉️ hello@loafysroll.com</p>
+        </div>
+        <div class="footer-hours">
+            <h4>Business Hours</h4>
+            <p>Mon - Fri: 7:00 AM - 7:00 PM</p>
+            <p>Sat - Sun: 8:00 AM - 5:00 PM</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Loafy's Hungarian Roll. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
